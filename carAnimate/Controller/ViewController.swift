@@ -28,7 +28,6 @@ final class ViewController: UIViewController {
     // MARK: - Private methods
     private func configureCarView() {
         carView.backgroundColor = .white
-        
         view.addSubview(carView)
         carView.setWidth(Constants.carViewWidth)
         carView.setHeight(Constants.carViewHeight)

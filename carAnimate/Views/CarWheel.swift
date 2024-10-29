@@ -27,7 +27,6 @@ final class CarWheel: UIView {
         self.width = width
         super.init(frame: .zero)
         configureWheel()
-        animateWheel()
     }
     
     @available(*, unavailable)
@@ -50,11 +49,5 @@ final class CarWheel: UIView {
         disk.setWidth(Constants.Disk.diskWitdth)
         disk.setHeight(Constants.Disk.diskHeight)
         disk.pinCenter(to: self)
-    }
-    
-    private func animateWheel() {
-        UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .curveLinear]) {
-            self.transform = self.transform.rotated(by: .pi)
-        }
     }
 }

@@ -8,6 +8,19 @@
 import UIKit
 
 final class CarView: UIView {
+    // MARK: - Constants
+    enum Constants {
+        enum barAnimation {
+            static let duration: Double = 0.5
+            static let delay: Double = 0.1
+            static let keyFrames: [Double] = [3.5, -2, 1.5, -1]
+        }
+        enum wheelAnimation {
+            static let duration: Double = 1
+            static let delay: Double = 0
+            static let options: UIView.AnimationOptions = [.repeat, .curveLinear]
+        }
+    }
     
     // MARK: - Variables
     private var carBody = [CarElement]()
@@ -18,6 +31,8 @@ final class CarView: UIView {
         super.init(frame: .zero)
         setupCarBody()
         setupCarWheels()
+        wheelsAnimate()
+        carAnimate()
     }
     
     @available(*, unavailable)
@@ -56,5 +71,37 @@ final class CarView: UIView {
         carWheels.append(rightWheel)
         rightWheel.pinLeft(to: leftWheel, WheelModel.wheelsSpacing)
         rightWheel.pinBottom(to: leftWheel)
+    }
+    
+    private func wheelsAnimate() {
+        for wheel in carWheels.indices {
+            UIView.animate(
+                withDuration: Constants.wheelAnimation.duration,
+                delay: Constants.wheelAnimation.delay,
+                options: Constants.wheelAnimation.options
+            ) {
+                self.carWheels[wheel].transform = CGAffineTransform(rotationAngle: .pi)
+            }
+        }
+    }
+    
+    private func carAnimate() {
+        for element in carBody.indices {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                // start animation on this element
+                if element == self.carBody.count - 3 {
+                    self.carAnimate()
+                }
+            }
+            let animation = CAKeyframeAnimation(keyPath: "transform.translation.y")
+            animation.duration = Constants.barAnimation.duration
+            animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            animation.beginTime = CACurrentMediaTime() + Double(element) * Constants.barAnimation.delay
+            animation.values = Constants.barAnimation.keyFrames
+            // animate every element
+            carBody[carBody.count - element - 1].layer.add(animation, forKey: nil)
+            CATransaction.commit()
+        }
     }
 }
