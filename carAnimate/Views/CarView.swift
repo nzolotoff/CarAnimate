@@ -32,39 +32,30 @@ final class CarView: UIView {
             let element = CarElement(model: CarElement.Model(height: carModel.heights[i], topSpacing: carModel.topSpacing[i]))
             carBody.append(element)
             self.addSubview(element)
-            element.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                element.widthAnchor.constraint(equalToConstant: element.model.width),
-                element.heightAnchor.constraint(equalToConstant: element.model.height),
-                element.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Double(i) * (carModel.elementsSpacing + element.model.width)),
-                element.topAnchor.constraint(equalTo: self.topAnchor, constant: element.model.topSpacing)
-            ])
+            element.setWidth(element.model.width)
+            element.setHeight(element.model.height)
+            element.pinLeft(to: self, Double(i) * (carModel.elementsSpacing + element.model.width))
+            element.pinTop(to: self, element.model.topSpacing)
         }
     }
     
     private func createCarWheel() -> CarWheel {
         let wheel = CarWheel(width: 45)
-        wheel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(wheel)
-        NSLayoutConstraint.activate([
-            wheel.heightAnchor.constraint(equalToConstant: wheel.width),
-            wheel.widthAnchor.constraint(equalToConstant: wheel.width)
-        ])
+        wheel.setWidth(wheel.width)
+        wheel.setHeight(wheel.width)
         return wheel
     }
     
     private func setupCarWheels() {
         let leftWheel = createCarWheel()
         carWheels.append(leftWheel)
-        NSLayoutConstraint.activate([
-            leftWheel.leadingAnchor.constraint(equalTo: carBody[0].leadingAnchor, constant: 60),
-            leftWheel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 13 * -1)
-        ])
+        leftWheel.pinLeft(to: carBody[0], 64)
+        leftWheel.pinBottom(to: self, 13)
+        
         let rightWheel = createCarWheel()
         carWheels.append(rightWheel)
-        NSLayoutConstraint.activate([
-            rightWheel.leadingAnchor.constraint(equalTo: leftWheel.trailingAnchor, constant: 158),
-            rightWheel.bottomAnchor.constraint(equalTo: leftWheel.bottomAnchor)
-        ])
+        rightWheel.pinLeft(to: leftWheel, 203)
+        rightWheel.pinBottom(to: leftWheel)
     }
 }

@@ -41,14 +41,10 @@ final class CarWheel: UIView {
         disk.backgroundColor = .white
         disk.layer.cornerRadius = 11
         disk.transform = CGAffineTransform(rotationAngle: 40)
-        disk.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(disk)
-        NSLayoutConstraint.activate([
-            disk.heightAnchor.constraint(equalToConstant: Constants.diskWidthHeight),
-            disk.widthAnchor.constraint(equalToConstant: Constants.diskWidthHeight),
-            disk.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            disk.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
+        disk.setWidth(Constants.diskWidthHeight)
+        disk.setHeight(Constants.diskWidthHeight)
+        disk.pinCenter(to: self)
     }
     
     private func animateWheel() {
