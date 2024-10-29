@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 final class CarElement: UIView {
+    // MARK: - Model
     struct Model {
         var width: Double
         var height: Double
@@ -20,23 +21,13 @@ final class CarElement: UIView {
             self.topSpacing = topSpacing
         }
     }
-   // MARK: - Properties
-    var width: Double = 10
-    var height: Double
-    var topSpacing: Double
+    
+    // MARK: - Properties
+    let model: Model
     
     // MARK: - Lyfecycle
     init(model: Model) {
-        width = model.width
-        height = model.height
-        topSpacing = model.topSpacing
-        super.init(frame: .zero)
-    }
-    
-    @available(*, deprecated, message: "Use Model instead")
-    init(height: Double, topSpacing: Double) {
-        self.height = height
-        self.topSpacing = topSpacing
+        self.model = model
         super.init(frame: .zero)
         configureCarElement()
     }
@@ -45,6 +36,7 @@ final class CarElement: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // MARK: - Private methods
     private func configureCarElement() {
         backgroundColor = .systemBlue

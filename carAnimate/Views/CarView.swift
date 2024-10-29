@@ -29,15 +29,15 @@ final class CarView: UIView {
     // MARK: - Private methods
     private func setupCarBody() {
         for i in 0..<carModel.heights.count {
-            let element = CarElement(height: carModel.heights[i], topSpacing: carModel.topSpacing[i])
+            let element = CarElement(model: CarElement.Model(height: carModel.heights[i], topSpacing: carModel.topSpacing[i]))
             carBody.append(element)
             self.addSubview(element)
             element.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                element.widthAnchor.constraint(equalToConstant: element.width),
-                element.heightAnchor.constraint(equalToConstant: element.height),
-                element.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Double(i) * (carModel.elementsSpacing + element.width)),
-                element.topAnchor.constraint(equalTo: self.topAnchor, constant: element.topSpacing)
+                element.widthAnchor.constraint(equalToConstant: element.model.width),
+                element.heightAnchor.constraint(equalToConstant: element.model.height),
+                element.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Double(i) * (carModel.elementsSpacing + element.model.width)),
+                element.topAnchor.constraint(equalTo: self.topAnchor, constant: element.model.topSpacing)
             ])
         }
     }
