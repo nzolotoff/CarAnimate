@@ -10,7 +10,6 @@ import UIKit
 final class CarView: UIView {
     
     // MARK: - Variables
-    private var carModel = CarModel()
     private var carBody = [CarElement]()
     private var carWheels = [CarWheel]()
     
@@ -28,19 +27,19 @@ final class CarView: UIView {
     
     // MARK: - Private methods
     private func setupCarBody() {
-        for i in 0..<carModel.heights.count {
-            let element = CarElement(model: CarElement.Model(height: carModel.heights[i], topSpacing: carModel.topSpacing[i]))
+        for i in 0..<CarBodyModel.barHeights.count {
+            let element = CarElement(model: CarElement.Model(height: CarBodyModel.barHeights[i], topSpacing: CarBodyModel.barsTopIdent[i]))
             carBody.append(element)
             self.addSubview(element)
             element.setWidth(element.model.width)
             element.setHeight(element.model.height)
-            element.pinLeft(to: self, Double(i) * (carModel.elementsSpacing + element.model.width))
+            element.pinLeft(to: self, Double(i) * (CarBodyModel.barsSpacing + element.model.width))
             element.pinTop(to: self, element.model.topSpacing)
         }
     }
     
     private func createCarWheel() -> CarWheel {
-        let wheel = CarWheel(width: 45)
+        let wheel = CarWheel(width: WheelModel.wheelWidth)
         self.addSubview(wheel)
         wheel.setWidth(wheel.width)
         wheel.setHeight(wheel.width)
@@ -50,12 +49,12 @@ final class CarView: UIView {
     private func setupCarWheels() {
         let leftWheel = createCarWheel()
         carWheels.append(leftWheel)
-        leftWheel.pinLeft(to: carBody[0], 64)
-        leftWheel.pinBottom(to: self, 13)
+        leftWheel.pinLeft(to: self, WheelModel.wheelLeftIdent)
+        leftWheel.pinBottom(to: self, WheelModel.wheelBottomIdent)
         
         let rightWheel = createCarWheel()
         carWheels.append(rightWheel)
-        rightWheel.pinLeft(to: leftWheel, 203)
+        rightWheel.pinLeft(to: leftWheel, WheelModel.wheelsSpacing)
         rightWheel.pinBottom(to: leftWheel)
     }
 }

@@ -8,8 +8,14 @@
 import UIKit
 
 final class ViewController: UIViewController {
+    // MARK: - Constants
+    enum Constants {
+        static let carViewHeight: Double = 180
+        static let carViewWidth: Double = 360
+        static let carTopIdent: Double = 100
+    }
+    
     // MARK: - Variables
-    private let carModel = CarModel()
     private var carView = CarView()
     
     // MARK: - Lyfecycle
@@ -22,14 +28,12 @@ final class ViewController: UIViewController {
     // MARK: - Private methods
     private func configureCarView() {
         carView.backgroundColor = .white
-        carView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(carView)
-        NSLayoutConstraint.activate([
-            carView.heightAnchor.constraint(equalToConstant: 180),
-            carView.widthAnchor.constraint(equalToConstant: 360),
-            carView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: carModel.topSpacing.min() ?? 0),
-            carView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 21)
-        ])
+        carView.setWidth(Constants.carViewWidth)
+        carView.setHeight(Constants.carViewHeight)
+        carView.pinTop(to: view, Constants.carTopIdent)
+        carView.pinCenterX(to: view)
     }
 }
 

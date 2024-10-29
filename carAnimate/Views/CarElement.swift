@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 
 final class CarElement: UIView {
+    // MARK: - Constants
+    enum Constants {
+        static let elementRadius: Double = 5
+    }
+    
     // MARK: - Model
     struct Model {
         var width: Double
@@ -30,6 +35,7 @@ final class CarElement: UIView {
         self.model = model
         super.init(frame: .zero)
         configureCarElement()
+        animateElement()
     }
     
     @available(*, unavailable)
@@ -40,22 +46,26 @@ final class CarElement: UIView {
     // MARK: - Private methods
     private func configureCarElement() {
         backgroundColor = .systemBlue
-        layer.cornerRadius = 5
+        layer.cornerRadius = Constants.elementRadius
     }
     
     private func animateElement() {
-        UIView.animateKeyframes(withDuration: 0.7, delay: 0.9, options: [.calculationModeLinear], animations: {
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
-                self.transform = CGAffineTransform(translationX: 0, y: 2)
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [.repeat, .calculationModeLinear], animations: {
+            // Первое поднятие
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25) {
+                self.transform = CGAffineTransform(translationX: 0, y: -10) // Поднимаем на 10 пикселей
             }
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.3) {
-                self.transform = CGAffineTransform(translationX: 0, y: -2)
+            // Опускаем обратно
+            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
+                self.transform = CGAffineTransform(translationX: 0, y: 0) // Возвращаем на место
             }
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.4) {
-                self.transform = .identity
+            // Второе поднятие
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
+                self.transform = CGAffineTransform(translationX: 0, y: -5) // Поднимаем на 5 пикселей
+            }
+            // Опускаем обратно
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+                self.transform = CGAffineTransform(translationX: 0, y: 0) // Возвращаем на место
             }
         })
     }
