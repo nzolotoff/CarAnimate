@@ -65,6 +65,7 @@ final class CarView: UIView {
             element.setHeight(element.model.height)
             element.pinLeft(to: self, Double(i) * (CarBodyModel.barsSpacing + element.model.width))
             element.pinTop(to: self, element.model.topSpacing)
+            
         }
     }
     

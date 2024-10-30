@@ -39,6 +39,7 @@ final class CarWheel: UIView {
         backgroundColor = .systemBlue
         layer.cornerRadius = self.width / 2
         configureDisk()
+        addShadow()
     }
     
     private func configureDisk() {

@@ -46,5 +46,6 @@ final class CarElement: UIView {
     private func configureCarElement() {
         backgroundColor = .systemBlue
         layer.cornerRadius = Constants.elementRadius
+        addShadow()
     }
 }

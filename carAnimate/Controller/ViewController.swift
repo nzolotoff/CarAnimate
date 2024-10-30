@@ -36,7 +36,7 @@ final class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateCarMovement()
+       // animateCarMovement()
     }
     
     // MARK: - Private methods
