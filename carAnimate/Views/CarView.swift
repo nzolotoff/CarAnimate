@@ -15,6 +15,7 @@ final class CarView: UIView {
             static let delay: Double = 0.1
             static let keyFrames: [Double] = [3.5, -2, 1.5, -1]
         }
+        
         enum wheelAnimation {
             static let duration: Double = 1
             static let delay: Double = 0
@@ -26,8 +27,12 @@ final class CarView: UIView {
     private var carBody = [CarElement]()
     private var carWheels = [CarWheel]()
     
+    // MARK: - Properties
+    let direction: Direction
+    
     // MARK: - Lyfecycle
-    override init(frame: CGRect) {
+    init(direction: Direction) {
+        self.direction = direction
         super.init(frame: .zero)
         setupCarBody()
         setupCarWheels()
@@ -41,7 +46,17 @@ final class CarView: UIView {
     }
     
     // MARK: - Private methods
+    private func checkDirection() {
+        switch direction {
+        case .leftToRight: break
+        case .rightToLeft:
+            CarBodyModel.barHeights.reverse()
+            CarBodyModel.barsTopIdent.reverse()
+        }
+    }
+    
     private func setupCarBody() {
+        checkDirection()
         for i in 0..<CarBodyModel.barHeights.count {
             let element = CarElement(model: CarElement.Model(height: CarBodyModel.barHeights[i], topSpacing: CarBodyModel.barsTopIdent[i]))
             carBody.append(element)
@@ -64,12 +79,17 @@ final class CarView: UIView {
     private func setupCarWheels() {
         let leftWheel = createCarWheel()
         carWheels.append(leftWheel)
-        leftWheel.pinLeft(to: self, WheelModel.wheelLeftIdent)
-        leftWheel.pinBottom(to: self, WheelModel.wheelBottomIdent)
-        
         let rightWheel = createCarWheel()
         carWheels.append(rightWheel)
-        rightWheel.pinLeft(to: leftWheel, WheelModel.wheelsSpacing)
+        switch direction {
+        case .leftToRight:
+            leftWheel.pinLeft(to: self, WheelModel.wheelXIdent(direction: self.direction))
+            rightWheel.pinLeft(to: leftWheel, WheelModel.wheelsSpacing)
+        case .rightToLeft:
+            rightWheel.pinRight(to: self, WheelModel.wheelXIdent(direction: self.direction))
+            leftWheel.pinRight(to: rightWheel, WheelModel.wheelsSpacing)
+        }
+        leftWheel.pinBottom(to: self, WheelModel.wheelBottomIdent)
         rightWheel.pinBottom(to: leftWheel)
     }
     
@@ -80,7 +100,10 @@ final class CarView: UIView {
                 delay: Constants.wheelAnimation.delay,
                 options: Constants.wheelAnimation.options
             ) {
-                self.carWheels[wheel].transform = CGAffineTransform(rotationAngle: .pi)
+                switch self.direction {
+                case .leftToRight: self.carWheels[wheel].transform = CGAffineTransform(rotationAngle: .pi)
+                case .rightToLeft: self.carWheels[wheel].transform = CGAffineTransform(rotationAngle: -0.99 * .pi)
+                }
             }
         }
     }
