@@ -4,8 +4,9 @@ This project, developed using UIKit, showcases animated car components with an e
 
 ## Project Overview
 
-- **Framework**: UIKit
+- **Framework**: UIKit (Autolayout)
 - **Architecture**: MVC (Model-View-Controller)
+- **Animation**: Core Animation
 
 
 ## Features
