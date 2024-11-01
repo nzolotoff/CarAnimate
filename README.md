@@ -11,7 +11,7 @@ This project, developed using UIKit, showcases animated car components with an e
 
 ## Features
 
-- **Two-directional Movement**: The car smoothly animates both from left to right and from right to left
+- **Two-directional Movement**: The car smoothly animates both from left to right or from right to left
 - **Wheel Animation**: Wheels rotate continuously while the car is in motion
 - **Body Element Animation**: Each element of the car's body bounces with a delayed wave effect, creating a suspension-like visual
 
@@ -27,4 +27,4 @@ To run this project on your device, follow these steps:
 3. Build and run the project on the simulator or your device.
 4. **Behold the marvelous animation on your screen!**
 
-https://github.com/user-attachments/assets/e86abc32-0f1a-4ff3-817f-92e1387ea1ea
+https://github.com/user-attachments/assets/2bc3236d-d492-4c97-9e5c-1f351378cb96
