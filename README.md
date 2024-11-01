@@ -26,3 +26,4 @@ To run this project on your device, follow these steps:
 3. Build and run the project on the simulator or your device.
 4. **Behold the marvelous animation on your screen!**
 
+https://github.com/user-attachments/assets/e86abc32-0f1a-4ff3-817f-92e1387ea1ea
