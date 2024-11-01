@@ -25,7 +25,7 @@ final class ViewController: UIViewController {
     }
     
     // MARK: - Variables
-    private var carView = CarView(direction: .rightToLeft)
+    private var carView = CarView(direction: .leftToRight)
     
     // MARK: - Lyfecycle
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ final class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       // animateCarMovement()
+        animateCarMovement()
     }
     
     // MARK: - Private methods
